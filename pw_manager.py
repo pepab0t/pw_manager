@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 
+import os
 import random as ran
 import sqlite3 as sql
+import sys
 import tkinter as tk
 
 import pyperclip as ppc
@@ -9,10 +11,11 @@ from cryptography.fernet import Fernet
 
 HEIGHT, WIDTH = 375, 500
 
-DB_PATH: str = "./pw_data.db"
+DB_PATH: str = f"{os.path.dirname(sys.argv[0])}/pw_data.db"
 
 conn = sql.connect(DB_PATH)
 cur = conn.cursor()
+
 
 root = tk.Tk()
 root.geometry(f"{WIDTH}x{HEIGHT}+{int(root.winfo_screenwidth()/2-WIDTH/2)}+{int(root.winfo_screenheight()/2-HEIGHT/2)}")
@@ -215,19 +218,19 @@ class App():
 		elif act == 'change':
 			title = 'Change'
 
-		self.frame = tk.LabelFrame(self.master, bg=App.color, padx=10, pady=10)
+		self.frame = tk.LabelFrame(self.master, bg=self.color, padx=10, pady=10)
 		self.place_frame(self.frame)
 
-		self.label_title = tk.Label(self.frame, text=f'{title} user', font=App.font_title, bg=App.color)
+		self.label_title = tk.Label(self.frame, text=f'{title} user', font=self.font_title, bg=self.color)
 		self.label_title.grid(row=0, column=0, columnspan=2, pady=5)
 
-		self.label_user = tk.Label(self.frame, text='Username: ', font=App.font_text, anchor='e', bg=App.color)
+		self.label_user = tk.Label(self.frame, text='Username: ', font=self.font_text, anchor='e', bg=self.color)
 		self.label_user.grid(row=1, column=0, sticky='we', padx=1)
 
-		self.label_pw = tk.Label(self.frame, text='Password: ', font=App.font_text, anchor='e', bg=App.color)
+		self.label_pw = tk.Label(self.frame, text='Password: ', font=self.font_text, anchor='e', bg=self.color)
 		self.label_pw.grid(row=2, column=0, sticky='we', padx=1)
 
-		self.label_pw_confirm = tk.Label(self.frame, text='Password confirm: ', font=App.font_text, anchor='e', bg=App.color)
+		self.label_pw_confirm = tk.Label(self.frame, text='Password confirm: ', font=self.font_text, anchor='e', bg=self.color)
 		self.label_pw_confirm.grid(row=3, column=0, sticky='we', padx=1)
 
 		self.entry_user = tk.Entry(self.frame)
@@ -239,7 +242,7 @@ class App():
 		self.entry_pw_confirm = tk.Entry(self.frame, show="•")
 		self.entry_pw_confirm.grid(row=3, column=1, padx=1)
 
-		self.label_mess = tk.Label(self.frame, anchor='center', width=42, font=App.font_text, bg=App.color, fg='black')
+		self.label_mess = tk.Label(self.frame, anchor='center', width=42, font=self.font_text, bg=self.color, fg='black')
 		self.label_mess.grid(row=4, column=0, columnspan=2)
 
 		self.button_quit = tk.Button(self.frame, width=10)
@@ -280,25 +283,25 @@ class App():
 					self.label_mess.config(text="Passwords don't match.")
 
 	def login(self):
-		self.frame = tk.LabelFrame(self.master, bg=App.color, padx=20, pady=20)
+		self.frame = tk.LabelFrame(self.master, bg=self.color, padx=20, pady=20)
 		self.place_frame(self.frame)
 
-		self.label_title = tk.Label(self.frame, text='Login', font=App.font_title, bg=App.color)
+		self.label_title = tk.Label(self.frame, text='Login', font=self.font_title, bg=self.color)
 		self.label_title.grid(row=0, column=0, columnspan=2, pady=5)#place(relx=0.5, rely=0.1, anchor='n')
 
-		self.label_user = tk.Label(self.frame, font=App.font_text, text='Username: ', anchor='e', bg=App.color)
+		self.label_user = tk.Label(self.frame, font=self.font_text, text='Username: ', anchor='e', bg=self.color)
 		self.label_user.grid(row=1, column=0, sticky='we', padx=1)#place(relx=0.35, rely=0.35, anchor='ne')
 
 		self.entry_user=tk.Entry(self.frame)
 		self.entry_user.grid(row=1, column=1, sticky='we', padx=1)
 
-		self.label_pw = tk.Label(self.frame, text='Password: ', font=App.font_text, anchor='e', bg=App.color)
+		self.label_pw = tk.Label(self.frame, text='Password: ', font=self.font_text, anchor='e', bg=self.color)
 		self.label_pw.grid(row=2, column=0, sticky='we', padx=1)#place(relx=0.35, rely=0.45, anchor='ne')
 
 		self.entry_pw = tk.Entry(self.frame, show="•")
 		self.entry_pw.grid(row=2, column=1, sticky='we', padx=1)
 
-		self.label_mess = tk.Label(self.frame, width=30, anchor='center', font=App.font_text, bg=App.color, fg='black')
+		self.label_mess = tk.Label(self.frame, width=30, anchor='center', font=self.font_text, bg=self.color, fg='black')
 		self.label_mess.grid(row=3, column=0, columnspan=2)
 
 		self.button_signin = tk.Button(self.frame, text='Sign in', command=self.signin)
@@ -325,10 +328,10 @@ class App():
 		py=5
 		self.master.unbind('<BackSpace>')
 
-		self.frame = tk.LabelFrame(self.master, bg=App.color, pady=20, padx=20)
+		self.frame = tk.LabelFrame(self.master, bg=self.color, pady=20, padx=20)
 		self.place_frame(self.frame)
 
-		self.label_title = tk.Label(self.frame, text='Main menu', font=App.font_title, bg=App.color)
+		self.label_title = tk.Label(self.frame, text='Main menu', font=self.font_title, bg=self.color)
 		self.label_title.grid(row=0, column=0, columnspan=2, sticky='we')
 
 		self.button_data = tk.Button(self.frame, text='Data', width=20, command=self.display_data)
@@ -348,23 +351,23 @@ class App():
 		self.login()
 
 	def change_user(self):
-		self.top = tk.Toplevel(bg=app.color)
+		self.top = tk.Toplevel(bg=self.color)
 		self.top.geometry(f'300x150+{int(self.master.winfo_screenwidth()/2-150)}+{int(self.master.winfo_screenheight()/2-75)}')
 		self.top.title('Approve')
 		self.top.grab_set()
 
-		self.top_frame = tk.Frame(self.top, bg=app.color, borderwidth=1)
+		self.top_frame = tk.Frame(self.top, bg=self.color, borderwidth=1)
 		self.top_frame.place(relx=0.5, rely=0.5, anchor='center')
 
 		px = 5
 		w = 14
-		self.label_title = tk.Label(self.top_frame, text='Approve admin password', font=App.font_text, bg=app.color)
+		self.label_title = tk.Label(self.top_frame, text='Approve admin password', font=self.font_text, bg=self.color)
 		self.label_title.grid(row=0, column=0, columnspan=2, pady=5)
 
-		self.label_pw = tk.Label(self.top_frame, text='Password:', font=App.font_text, width=w, bg=app.color)
+		self.label_pw = tk.Label(self.top_frame, text='Password:', font=self.font_text, width=w, bg=self.color)
 		self.label_pw.grid(row=1, column=0, padx=px)
 
-		self.label_pw_confirm = tk.Label(self.top_frame, text='Confirm:', font=App.font_text, width=w, bg=app.color)
+		self.label_pw_confirm = tk.Label(self.top_frame, text='Confirm:', font=self.font_text, width=w, bg=self.color)
 		self.label_pw_confirm.grid(row=2, column=0, padx=px)
 
 		self.entry_pw = tk.Entry(self.top_frame, show="•", width=w)
@@ -373,7 +376,7 @@ class App():
 		self.entry_pw_confirm = tk.Entry(self.top_frame, show="•", width=w)
 		self.entry_pw_confirm.grid(row=2, column=1, padx=px)
 
-		self.label_mess = tk.Label(self.top_frame, anchor='center', font=App.font_text, fg='black', bg=app.color)
+		self.label_mess = tk.Label(self.top_frame, anchor='center', font=self.font_text, fg='black', bg=self.color)
 		self.label_mess.grid(row=3, column=0, columnspan=2, sticky='we')
 
 		self.button_quit = tk.Button(self.top_frame, text='Close', width=w-2, command=self.back_menu)
@@ -402,10 +405,10 @@ class App():
 
 		self.destroy()
 
-		self.frame = tk.LabelFrame(self.master, bg=App.color, padx=20, pady=20)
+		self.frame = tk.LabelFrame(self.master, bg=self.color, padx=20, pady=20)
 		self.place_frame(self.frame)
 
-		self.label_title = tk.Label(self.frame, bg=App.color, font=App.font_title, text='Your data')
+		self.label_title = tk.Label(self.frame, bg=self.color, font=self.font_title, text='Your data')
 		self.label_title.grid(row=0, column=0, columnspan=2)
 
 		self.listbox_data = tk.Listbox(self.frame, height=12)
@@ -451,27 +454,27 @@ class App():
 		my_data = list(self.a.view_password(self.my_rowid))
 
 		max_w = max([len(x) if len(x) > len(y) else len(y) for x, y in my_data])
-		self.frame = tk.LabelFrame(self.master, bg=App.color, padx=20, pady=20)
+		self.frame = tk.LabelFrame(self.master, bg=self.color, padx=20, pady=20)
 		self.place_frame(self.frame)
 
-		self.label_title = tk.Label(self.frame, text='Overview', font=App.font_title, bg=App.color)
+		self.label_title = tk.Label(self.frame, text='Overview', font=self.font_title, bg=self.color)
 		self.label_title.grid(row=0, column=0, columnspan=2, sticky='we')
 
 		i=1
 		for k, v in my_data:
-			my_label1 = tk.Label(self.frame, text=f"{k}:", font=App.font_text, anchor='e', width=max_w, bg=App.color)
+			my_label1 = tk.Label(self.frame, text=f"{k}:", font=self.font_text, anchor='e', width=max_w, bg=self.color)
 			my_label1.grid(row=i, column=0, padx=2, sticky='e')
 			if k == 'Password':
 				self.pw = v
-				self.label_password = tk.Label(self.frame, text=f"{v}", anchor='w', font=App.font_text, width=max_w, bg=App.color)
+				self.label_password = tk.Label(self.frame, text=f"{v}", anchor='w', font=self.font_text, width=max_w, bg=self.color)
 				self.label_password.config(text='••••••')
 				self.label_password.grid(row=i, column=1, padx=2, sticky='w')
 			else:
-				my_label2 = tk.Label(self.frame, text=f"{v}", anchor='w', width=max_w, font=App.font_text, bg=App.color)
+				my_label2 = tk.Label(self.frame, text=f"{v}", anchor='w', width=max_w, font=self.font_text, bg=self.color)
 				my_label2.grid(row=i, column=1, padx=2, sticky='w')
 			i += 1
 
-		self.label_status = tk.Label(self.frame, width=22, font=App.font_text, bg=App.color)
+		self.label_status = tk.Label(self.frame, width=22, font=self.font_text, bg=self.color)
 		self.label_status.grid(row=i, column=0, columnspan=2, sticky='we')
 
 		self.button_show = tk.Button(self.frame, text='Show', width=10, command=self.show)
@@ -498,27 +501,27 @@ class App():
 		self.label_status.config(text='Coppied to clipboard!')
 
 	def add(self):
-		self.top = tk.Toplevel(bg=app.color)
+		self.top = tk.Toplevel(bg=self.color)
 		self.top.title('Add data')
 		self.top.geometry(f'250x250+{int(self.master.winfo_screenwidth()/2-125)}+{int(self.master.winfo_screenheight()/2-125)}')
 		self.top.grab_set()
 
-		self.top_frame = tk.Frame(self.top, bg=app.color)
+		self.top_frame = tk.Frame(self.top, bg=self.color)
 		self.top_frame.place(relx=0.5, rely=0.5, anchor='center')
 
-		self.label_title = tk.Label(self.top_frame, text='Add new item', font=App.font_text, bg=app.color)
+		self.label_title = tk.Label(self.top_frame, text='Add new item', font=self.font_text, bg=self.color)
 		self.label_title.grid(row=0, column=0, columnspan=2)
 
 		i = 1
 		self.entries=[]
 		for key in self.colnames:
-			tk.Label(self.top_frame, text=f"{key}:", font=App.font_text, bg=app.color).grid(row=i, column=0)
+			tk.Label(self.top_frame, text=f"{key}:", font=self.font_text, bg=self.color).grid(row=i, column=0)
 			e = tk.Entry(self.top_frame)
 			e.grid(row=i, column=1)
 			self.entries.append(e)
 			i += 1
 
-		self.label_mess = tk.Label(self.top_frame, font=App.font_text, width=20, bg=app.color)
+		self.label_mess = tk.Label(self.top_frame, font=self.font_text, width=20, bg=self.color)
 		self.label_mess.grid(row=i, column=0, columnspan=2)
 
 		self.button_addpw = tk.Button(self.top_frame, text='Add', width=10, command=self.add_item)
@@ -552,6 +555,9 @@ class App():
 		self.display_data()
 		self.pw=''
 
-if __name__ == '__main__':
+def main():
 	app = App(root)
 	tk.mainloop()
+
+if __name__ == '__main__':
+	main()
