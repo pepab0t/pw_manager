@@ -1,17 +1,16 @@
 #!/usr/bin/python3
 
-import os
 import random as ran
 import sqlite3 as sql
-import sys
 import tkinter as tk
+from pathlib import Path
 
 import pyperclip as ppc
 from cryptography.fernet import Fernet
 
 HEIGHT, WIDTH = 375, 500
 
-DB_PATH: str = f"{os.path.dirname(sys.argv[0])}/pw_data.db"
+DB_PATH: str = f"{Path(__file__).parent.absolute()}/pw_data.db"
 
 conn = sql.connect(DB_PATH)
 cur = conn.cursor()
